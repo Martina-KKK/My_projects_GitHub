@@ -1,0 +1,99 @@
+html {
+  height: 100%;
+}
+body {
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+}
+
+.container {
+  display: block;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.logo, .slideshow {
+  display: block;
+}
+
+.logo {
+  background-image: url('Black_cat.svg');
+  background-repeat: no-repeat;
+  height: 300px;
+}
+
+.slideshow img {
+  width: 1280px;
+  height: 720px;
+  margin: 35px;
+  display: inline-block;
+  opacity: 1;
+}
+
+img:nth-of-type(1), .slideshow img:nth-of-type(2), .slideshow img:nth-of-type(3) {
+  /*animation-name: myFading; /*nazev animace*/
+  /*animation-duration: 10s; /*delka animace*/
+  /*animation-timing-function: ease-in-out; /*prubeh animace*/
+  /*animation-iteration-count: infinite; /*nekonecne prehravani*/
+
+  position: absolute; /*obrazky do jedne pozice*/
+  -webkit-animation: myFading 10s ease-in-out infinite; /*-webkit- prefix pro Chrome, Safari, Opera od verze 15*/
+  -moz-animation: myFading 10s ease-in-out infinite; /*-moz- prefix pro Mozilla Firefox*/
+  -ms-animation: myFading 10s ease-in-out infinite; /*-ms- prefix pro Internet Explorer od verze 9*/
+  -o-animation: myFading 10s ease-in-out infinite; /*-o- prefix pro Opera 12*/
+  animation: myFading 10s ease-in-out infinite; /*animation: vlastnosti zkracene*/
+  opacity: 0; /*nepruhlednost*/
+  z-index: 1; /*bod prekryvani*/
+}
+
+.slideshow img:nth-of-type(1) {
+  animation-delay: -3s;
+}
+.slideshow img:nth-of-type(2) {
+  animation-delay: 0s;
+}
+.slideshow img:nth-of-type(3) {
+  animation-delay: 3s;
+}
+
+@-webkit-keyframes myFading { /*-webkit- prefix pro Chrome, Safari, Opera od verze 15*/
+  0% {opacity: 0;}
+  20% {opacity: 1;}
+  33% {opacity: 1;}
+  53% {opacity: 0;}
+  100% {opacity: 0;}
+}
+
+@-moz-keyframes myFading { /*-moz- prefix pro Mozilla Firefox*/
+  0% {opacity: 0;}
+  20% {opacity: 1;}
+  33% {opacity: 1;}
+  53% {opacity: 0;}
+  100% {opacity: 0;}
+}
+
+@-ms-keyframes myFading { /*-ms- prefix pro Internet Explorer od verze 9*/
+  0% {opacity: 0;}
+  20% {opacity: 1;}
+  33% {opacity: 1;}
+  53% {opacity: 0;}
+  100% {opacity: 0;}
+}
+
+@-o-keyframes myFading { /*-o- prefix pro Opera 12*/
+  0% {opacity: 0;}
+  20% {opacity: 1;}
+  33% {opacity: 1;}
+  53% {opacity: 0;}
+  100% {opacity: 0;}
+}
+
+@keyframes myFading {
+  0% {opacity: 0;}
+  20% {opacity: 1;}
+  33% {opacity: 1;}
+  53% {opacity: 0;}
+  100% {opacity: 0;}
+}

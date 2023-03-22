@@ -1,0 +1,25 @@
+užitečné odkazy:
+https://www.itnetwork.cz/html-css
+https://www.iconfinder.com/
+https://jecas.cz/css-prefixy
+https://www.vzhurudolu.cz/prirucka/figure-figcaption
+https://www.jakpsatweb.cz/css/z-index.html
+https://www.w3schools.com/jquery/jquery_fade.asp
+
+https://stackoverflow.com/questions/6121203/how-to-do-fade-in-and-fade-out-with-javascript-and-css
+https://stackoverflow.com/questions/57381689/fade-in-fade-out-gallery-of-images-in-css-at-particular-position
+https://stackoverflow.com/posts/57381689/revisions
+
+https://www.google.com/search?ei=blCkX8qWJI-gUMWgo-gL&q=How+to+use+fade+in+%2F+fade+out+in+CSS+for+three+pictures%3F&oq=How+to+use+fade+in+%2F+fade+out+in+CSS+for+three+pictures%3F&gs_lcp=CgZwc3ktYWIQAzoECAAQRzoGCAAQBxAeOggIABAIEAcQHjoGCAAQCBAeOgUIIRCgAToECCEQClCu4TZYob04YI6dOWgAcAF4AIAByQGIAdIekgEHMjUuMTMuMZgBAKABAaoBB2d3cy13aXrIAQTAAQE&sclient=psy-ab&ved=0ahUKEwjKha7ij-zsAhUPEBQKHUXQCL0Q4dUDCA0&uact=5
+How to use fade in / fade out in CSS for three pictures?
+
+http://www.x-idea.cz/animace-pomoci-css3/
+https://tutorialy.estranky.cz/clanky/navody-a-rady/vymena-obrazku-v-zahlavi-za-slider.3.html
+
+https://jecas.cz/webove-animace
+https://jecas.cz/animation
+https://jecas.cz/slideshow-obrazku
+http://kod.djpw.cz/rzib
+
+
+
