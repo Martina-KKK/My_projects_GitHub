@@ -26,7 +26,7 @@ function register() {
   }
 
   if (!phoneRegex.test(phone)) {
-    result.innerHTML = "Telefonní číslo je neplatné.";
+    result.innerHTML = "Telefonní číslo je neplatné. Zadejte telefonní číslo i s předvolbou.";
     result.style.color = "red";
     return;
   }
