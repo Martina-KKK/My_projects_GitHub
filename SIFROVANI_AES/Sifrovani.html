@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="cs" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encryption JS</title>
+  </head>
+  <body>
+    <h1>Šifrování JS</h1>
+    <div>
+      <label for="message">Zpráva:</label>
+      <textarea id="message" rows="4" cols="50"></textarea>
+    </div>
+    <div>
+      <label for="encryptionKey">Šifrovací klíč:</label>
+      <input type="text" id="encryptionKey">
+    </div>
+    <div>
+      <button type="button" id="encryptButton">Zašifrovat</button>
+      <button type="button" id="decryptButton">Dešifrovat</button>
+    </div>
+    <div>
+      <h2>Výsledky:</h2>
+      <p id="encryptedText"></p>
+      <p id="decryptedText"></p>
+    </div>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.js"></script>
+    <script type="text/javascript" src="Sifrovani.js"></script>
+  </body>
+</html>
