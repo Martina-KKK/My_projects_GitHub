@@ -5,9 +5,6 @@ const encryptionKeyInput = document.getElementById('encryptionKey');
 const encryptedTextOutput = document.getElementById('encryptedText');
 const decryptedTextOutput = document.getElementById('decryptedText');
 
-// import potrebne knihovny
-//const CryptoJS = require('crypto-js');
-
 // funkce pro sifrovani textu
 function encryptText(text, key) {
   // prevod textu na pole bytu
