@@ -4,7 +4,7 @@ const messageInput = document.getElementById('message');
 const encryptionKeyInput = document.getElementById('encryptionKey');
 const encryptedTextOutput = document.getElementById('encryptedText');
 const decryptedTextOutput = document.getElementById('decryptedText');
-
+/*
 // funkce pro sifrovani textu
 function encryptText(text, key) {
   // prevod textu na pole bytu
@@ -61,25 +61,27 @@ function decryptText(encryptedText, key) {
   // prevod desifrovaneho textu na puvodni UTF-8 retezec
   return decrypted.toString(CryptoJS.enc.Utf8);
 }
+*/
 
-/*
 function encryptText(text, key) {
   const iv = CryptoJS.lib.WordArray.random(16);
   const encrypted = CryptoJS.AES.encrypt(text, key, {iv: iv});
-  return iv.concat(encrypted.ciphertext).toString(CryptoJS.enc.Base64);
+  //return iv.concat(encrypted.ciphertext).toString(CryptoJS.enc.Base64);
+  return iv.concat(encrypted.ciphertext).toString();
 }
 
 function decryptText(encryptedText, key) {
-  const rawData = CryptoJS.enc.Base64.parse(encryptedText);
-  //const iv = CryptoJS.enc.Hex.parse(rawData.substr(0, 32));
-  const iv = CryptoJS.lib.WordArray.create(rawData.words.slice(0, 4));
-  //const ciphertext = CryptoJS.enc.Hex.parse(rawData.substr(32));
-  const ciphertext = CryptoJS.lib.WordArray.create(rawData.words.slice(4));
+  //const rawData = CryptoJS.enc.Base64.parse(encryptedText);
+  const rawData = CryptoJS.enc.Hex.parse(encryptedText);
+  const iv = CryptoJS.enc.Hex.parse(rawData.substr(0, 32));
+  //const iv = CryptoJS.lib.WordArray.create(rawData.words.slice(0, 4));
+  const ciphertext = CryptoJS.enc.Hex.parse(rawData.substr(32));
+  //const ciphertext = CryptoJS.lib.WordArray.create(rawData.words.slice(4));
   const cipherParams = CryptoJS.lib.CipherParams.create({ciphertext: ciphertext});
   const decrypted = CryptoJS.AES.decrypt(cipherParams, key, {iv: iv});
   return decrypted.toString(CryptoJS.enc.Utf8);
 }
-*/
+
 // ovladaci udalost pro tlacitko "Zasifrovat"
 encryptButton.addEventListener('click', () => {
   const message = messageInput.value;
