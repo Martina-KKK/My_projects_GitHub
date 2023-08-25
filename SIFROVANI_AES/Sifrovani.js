@@ -62,25 +62,68 @@ function decryptText(encryptedText, key) {
   return decrypted.toString(CryptoJS.enc.Utf8);
 }
 */
-
+/*
 function encryptText(text, key) {
   const iv = CryptoJS.lib.WordArray.random(16);
   const encrypted = CryptoJS.AES.encrypt(text, key, {iv: iv});
-  //return iv.concat(encrypted.ciphertext).toString(CryptoJS.enc.Base64);
-  return iv.concat(encrypted.ciphertext).toString();
+  return iv.concat(encrypted.ciphertext).toString(CryptoJS.enc.Base64);
+  //return iv.concat(encrypted.ciphertext).toString();
 }
 
 function decryptText(encryptedText, key) {
-  //const rawData = CryptoJS.enc.Base64.parse(encryptedText);
-  const rawData = CryptoJS.enc.Hex.parse(encryptedText);
-  const iv = CryptoJS.enc.Hex.parse(rawData.substr(0, 32));
+  const rawData = CryptoJS.enc.Base64.parse(encryptedText);
+  //const rawData = CryptoJS.enc.Hex.parse(encryptedText);
+  //const iv = CryptoJS.enc.Hex.parse(rawData.substr(0, 32));
   //const iv = CryptoJS.lib.WordArray.create(rawData.words.slice(0, 4));
-  const ciphertext = CryptoJS.enc.Hex.parse(rawData.substr(32));
+  const iv = CryptoJS.enc.Hex.parse(rawData.words.slice(0, 4).map(word => word.toString(16)).join(''));
+  const ciphertext = CryptoJS.enc.Hex.parse(rawData.words.slice(4).map(word => word.toString(16)).join(''));
+  //const ciphertext = CryptoJS.enc.Hex.parse(rawData.substr(32));
   //const ciphertext = CryptoJS.lib.WordArray.create(rawData.words.slice(4));
   const cipherParams = CryptoJS.lib.CipherParams.create({ciphertext: ciphertext});
   const decrypted = CryptoJS.AES.decrypt(cipherParams, key, {iv: iv});
   return decrypted.toString(CryptoJS.enc.Utf8);
 }
+*/
+
+// Funkce pro šifrování textu
+function encryptText(text, key) {
+  const iv = CryptoJS.lib.WordArray.random(16);
+  const encrypted = CryptoJS.AES.encrypt(text, key, { iv: iv });
+  return iv.concat(encrypted.ciphertext).toString(CryptoJS.enc.Base64);
+}
+
+// Funkce pro dešifrování textu
+function decryptText(encryptedText, key) {
+  if (!encryptedText) {
+    return "Chybí zašifrovaný text.";
+  }
+  
+  const rawData = CryptoJS.enc.Base64.parse(encryptedText);
+
+  const ivBuffer = new ArrayBuffer(16);
+  const ivView = new DataView(ivBuffer);
+  for (let i = 0; i < 4; i++) {
+    ivView.setUint32(i * 4, rawData.words[i]);
+  }
+
+  const ciphertextBuffer = new ArrayBuffer(rawData.sigBytes - 16);
+  const ciphertextView = new DataView(ciphertextBuffer);
+  for (let i = 0; i < ciphertextBuffer.byteLength; i++) {
+    ciphertextView.setUint8(i, rawData.words[i + 4]);
+  }
+
+  const iv = CryptoJS.lib.WordArray.create(ivBuffer);
+  const ciphertext = CryptoJS.lib.WordArray.create(ciphertextBuffer);
+
+  const cipherParams = CryptoJS.lib.CipherParams.create({
+    ciphertext: ciphertext
+  });
+
+  const decrypted = CryptoJS.AES.decrypt(cipherParams, key, { iv: iv });
+  return decrypted.toString(CryptoJS.enc.Utf8);
+}
+
+
 
 // ovladaci udalost pro tlacitko "Zasifrovat"
 encryptButton.addEventListener('click', () => {
