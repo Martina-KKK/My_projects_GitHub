@@ -4,6 +4,9 @@ const messageInput = document.getElementById('message');
 const encryptionKeyInput = document.getElementById('encryptionKey');
 const encryptedTextOutput = document.getElementById('encryptedText');
 const decryptedTextOutput = document.getElementById('decryptedText');
+
+//const encryptionKey = 'MujNejSkvelySuperTajnyKlic256bit';
+
 /*
 // funkce pro sifrovani textu
 function encryptText(text, key) {
@@ -62,28 +65,6 @@ function decryptText(encryptedText, key) {
   return decrypted.toString(CryptoJS.enc.Utf8);
 }
 */
-/*
-function encryptText(text, key) {
-  const iv = CryptoJS.lib.WordArray.random(16);
-  const encrypted = CryptoJS.AES.encrypt(text, key, {iv: iv});
-  return iv.concat(encrypted.ciphertext).toString(CryptoJS.enc.Base64);
-  //return iv.concat(encrypted.ciphertext).toString();
-}
-
-function decryptText(encryptedText, key) {
-  const rawData = CryptoJS.enc.Base64.parse(encryptedText);
-  //const rawData = CryptoJS.enc.Hex.parse(encryptedText);
-  //const iv = CryptoJS.enc.Hex.parse(rawData.substr(0, 32));
-  //const iv = CryptoJS.lib.WordArray.create(rawData.words.slice(0, 4));
-  const iv = CryptoJS.enc.Hex.parse(rawData.words.slice(0, 4).map(word => word.toString(16)).join(''));
-  const ciphertext = CryptoJS.enc.Hex.parse(rawData.words.slice(4).map(word => word.toString(16)).join(''));
-  //const ciphertext = CryptoJS.enc.Hex.parse(rawData.substr(32));
-  //const ciphertext = CryptoJS.lib.WordArray.create(rawData.words.slice(4));
-  const cipherParams = CryptoJS.lib.CipherParams.create({ciphertext: ciphertext});
-  const decrypted = CryptoJS.AES.decrypt(cipherParams, key, {iv: iv});
-  return decrypted.toString(CryptoJS.enc.Utf8);
-}
-*/
 
 // Funkce pro šifrování textu
 function encryptText(text, key) {
@@ -97,7 +78,7 @@ function decryptText(encryptedText, key) {
   if (!encryptedText) {
     return "Chybí zašifrovaný text.";
   }
-  
+
   const rawData = CryptoJS.enc.Base64.parse(encryptedText);
 
   const ivBuffer = new ArrayBuffer(16);
@@ -131,27 +112,22 @@ encryptButton.addEventListener('click', () => {
   const encryptionKey = encryptionKeyInput.value;
   const encrypted = encryptText(message, encryptionKey);
   encryptedTextOutput.textContent = 'Zašifrovaný text: ' + encrypted;
+  decryptedTextOutput.textContent = ''; // vynulovani vystupu pro desifrovany text
 });
 
 // ovladaci udalost pro tlacitko "Desifrovat"
 decryptButton.addEventListener('click', () => {
-  const encryptedText = encryptedTextOutput.textContent.split(': ')[1];
+  const message = messageInput.value;
   const encryptionKey = encryptionKeyInput.value;
-  const decrypted = decryptText(encryptedText, encryptionKey);
-  decryptedTextOutput.textContent = 'Dešifrovaný text: ' + decrypted;
+  if (encryptButton.disabled) {
+    // desifrovani
+    const decrypted = decryptText(message, encryptionKey);
+    decryptedTextOutput.textContent = 'Dešifrovaný text: ' + decrypted;
+    encryptedTextOutput.textContent = ''; // vynulovani vystupu pro desifrovany text
+  } else {
+    // zasifrovani
+    const encrypted = encryptText(message, encryptionKey);
+    encryptedTextOutput.textContent = 'Zašifrovaný text: ' + encrypted;
+    decryptedTextOutput.textContent = ''; // vynulovani vystupu pro desifrovany text
+  }
 });
-
-/*
-// Priklad pouziti
-const plaintext = 'Toto je tajná zpráva!';
-//const encryptionKey = 'SuperTajnyKlic256bit';
-const encryptionKey = 'MujNejSkvelySuperTajnyKlic256bit';
-
-// Sifrovani
-const encrypted = encryptText(plaintext, encryptionKey);
-console.log('Zašifrovaný text:', encrypted);
-
-// Desifrovani
-const decrypted = decryptText(encrypted, encryptionKey);
-console.log('Dešifrovaný text:', decrypted);
-*/
