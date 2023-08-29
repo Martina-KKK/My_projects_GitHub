@@ -1,0 +1,2 @@
+Příklad využití regulárních výrazů pro validaci emailu, hesla a telefonního čísla např. při registraci.
+Po úspěšné registraci se otevře nová stránka, kde je příklad na šifrování zpráv pomocí algoritmu AES s CBC režimem. 
