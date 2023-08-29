@@ -1,0 +1,23 @@
+body {
+  text-align: center;
+  background-color: lightgreen;
+}
+
+label {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+}
+
+#encryptionKey {
+  width: 250px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: lightyellow;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 10px;
+  border: 1px solid black;
+}

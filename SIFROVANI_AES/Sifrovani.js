@@ -78,31 +78,80 @@ function decryptText(encryptedText, key) {
   if (!encryptedText) {
     return "Chybí zašifrovaný text.";
   }
-
   const rawData = CryptoJS.enc.Base64.parse(encryptedText);
-
   const ivBuffer = new ArrayBuffer(16);
   const ivView = new DataView(ivBuffer);
   for (let i = 0; i < 4; i++) {
     ivView.setUint32(i * 4, rawData.words[i]);
   }
-
   const ciphertextBuffer = new ArrayBuffer(rawData.sigBytes - 16);
   const ciphertextView = new DataView(ciphertextBuffer);
   for (let i = 0; i < ciphertextBuffer.byteLength; i++) {
     ciphertextView.setUint8(i, rawData.words[i + 4]);
   }
-
   const iv = CryptoJS.lib.WordArray.create(ivBuffer);
   const ciphertext = CryptoJS.lib.WordArray.create(ciphertextBuffer);
-
   const cipherParams = CryptoJS.lib.CipherParams.create({
     ciphertext: ciphertext
   });
-
   const decrypted = CryptoJS.AES.decrypt(cipherParams, key, { iv: iv });
   return decrypted.toString(CryptoJS.enc.Utf8);
 }
+
+
+/*
+// Funkce pro šifrování textu
+function encryptText(text, key) {
+  // Převést text na pole bytů
+  const textBytes = CryptoJS.enc.Utf8.parse(text);
+
+  // Vygenerovat náhodný inicializační vektor (IV)
+  const iv = CryptoJS.lib.WordArray.random(16);
+
+  // Šifrovací algoritmus AES s 256bit klíčem a CBC režimem
+  const cipherText = CryptoJS.AES.encrypt(textBytes, key, {
+    iv: iv,
+    mode: CryptoJS.mode.CBC,
+    keySize: 256 / 32,
+    padding: CryptoJS.pad.Pkcs7
+  });
+
+  // Kombinace IV a šifrovaného textu do jednoho výstupu
+  const encrypted = iv.concat(cipherText.ciphertext);
+
+  // Převést výstup na base64
+  return encrypted.toString(CryptoJS.enc.Base64);
+}
+
+// Funkce pro dešifrování textu
+function decryptText(encryptedText, key) {
+  // Dekódovat base64 vstup na pole bytů
+  const encryptedBytes = CryptoJS.enc.Base64.parse(encryptedText);
+
+  // Získat IV z prvních 16 bytů vstupu
+  const iv = encryptedBytes.slice(0, 16);
+
+  // Získat zbylý šifrovaný text
+  const ciphertext = encryptedBytes.slice(16);
+
+  // Vytvořit objekt pro dešifrování
+  const cipherParams = {
+    ciphertext: ciphertext,
+    iv: iv,
+    key: key,
+    mode: CryptoJS.mode.CBC,
+    padding: CryptoJS.pad.Pkcs7
+  };
+
+  // Dešifrovat text
+  const decrypted = CryptoJS.AES.decrypt(cipherParams, key, {
+    keySize: 256 / 32
+  });
+
+  // Převést dešifrovaný text na původní UTF-8 řetězec
+  return decrypted.toString(CryptoJS.enc.Utf8);
+}
+*/
 
 
 
@@ -113,21 +162,27 @@ encryptButton.addEventListener('click', () => {
   const encrypted = encryptText(message, encryptionKey);
   encryptedTextOutput.textContent = 'Zašifrovaný text: ' + encrypted;
   decryptedTextOutput.textContent = ''; // vynulovani vystupu pro desifrovany text
+  //decryptButton.disabled = false; // aktivovani tlacitka Desifrovat
+  //encryptButton.disabled = true;  // deaktivovani tlacitka Zasifrovat
 });
 
 // ovladaci udalost pro tlacitko "Desifrovat"
 decryptButton.addEventListener('click', () => {
-  const message = messageInput.value;
+  //const message = messageInput.value;
+  const encryptedText = messageInput.value; // vstupni text je zasifrovany text
   const encryptionKey = encryptionKeyInput.value;
-  if (encryptButton.disabled) {
+  //if (encryptButton.disabled) {
     // desifrovani
-    const decrypted = decryptText(message, encryptionKey);
-    decryptedTextOutput.textContent = 'Dešifrovaný text: ' + decrypted;
-    encryptedTextOutput.textContent = ''; // vynulovani vystupu pro desifrovany text
-  } else {
+  //const decrypted = decryptText(message, encryptionKey);
+  const decrypted = decryptText(encryptedText, encryptionKey);
+  decryptedTextOutput.textContent = 'Dešifrovaný text: ' + decrypted;
+  //encryptedTextOutput.textContent = ''; // vynulovani vystupu pro desifrovany text
+  //encryptButton.disabled = false; // aktivovani tlacitka Zasifrovat
+  //decryptButton.disabled = true;  // deaktivovani tlacitka Desifrovat
+  //} else {
     // zasifrovani
-    const encrypted = encryptText(message, encryptionKey);
-    encryptedTextOutput.textContent = 'Zašifrovaný text: ' + encrypted;
-    decryptedTextOutput.textContent = ''; // vynulovani vystupu pro desifrovany text
-  }
+    //const encrypted = encryptText(message, encryptionKey);
+    //encryptedTextOutput.textContent = 'Zašifrovaný text: ' + encrypted;
+    //decryptedTextOutput.textContent = ''; // vynulovani vystupu pro desifrovany text
+  //}
 });
